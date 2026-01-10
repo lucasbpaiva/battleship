@@ -1,7 +1,8 @@
 import { Gameboard } from "./Gameboard.js";
 
+let gameboard;
 beforeEach(() => {
-    let gameboard = new Gameboard();
+    gameboard = new Gameboard();
 });
 
 test("Ships can be placed horizontally", () => {
