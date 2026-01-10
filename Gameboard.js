@@ -7,7 +7,8 @@ export class Gameboard {
         this.ships = [];
     }
 
-    placeShip(length, startPosX, startPosY, orientation, ship = new Ship(length)) {
+    placeShip(length, startPosX, startPosY, orientation) {
+        const ship = new Ship(length);
         this.ships.push(ship);
         if (orientation === 0) { //horizontal
             for (let i = 0; i < length; i++) {
