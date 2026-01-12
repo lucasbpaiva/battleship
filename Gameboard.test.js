@@ -66,5 +66,5 @@ test("Cannot place ship out of bounds (big posY)", () => {
 
 test("Cannot place ship on top of other ship", () => {
     gameboard.placeShip(3, 0, 0, 0);
-    expect(gameboard.placeShip(3, 0, 0, 1)).toBe(false);
+    expect(() => gameboard.placeShip(3, 0, 0, 1)).toThrow();
 });
