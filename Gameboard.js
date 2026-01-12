@@ -11,18 +11,28 @@ export class Gameboard {
         const ship = new Ship(length);
         this.ships.push(ship);
         if (startPosX < 0 || startPosX > 9 || startPosY < 0 || startPosY > 9) {
-            throw new Error("Trying to place ship out of bounds");
+            throw new Error("Cannot place ship out of bounds");
         }
         if (orientation === 0) { //horizontal
             if (startPosX + length > 10) {
-                throw new Error("Trying to place ship out of bounds");
+                throw new Error("Cannot place ship out of bounds");
+            }
+            for (let i = 0; i < length; i++) {
+                if (this.board[startPosY][startPosX + i][0] === 1) {
+                    throw new Error("Cannot place ship on top of other");
+                }
             }
             for (let i = 0; i < length; i++) {
                 this.board[startPosY][startPosX + i] = [1, false, ship];
             }  
         } else if (orientation === 1) { //vertical
             if (startPosY + length > 10) {
-                throw new Error("Trying to place ship out of bounds");
+                throw new Error("Cannot place ship out of bounds");
+            }
+            for (let i = 0; i < length; i++) {
+                if (this.board[startPosY + i][startPosX][0] === 1) {
+                    throw new Error("Cannot place ship on top of other");
+                }
             }
             for (let i = 0; i < length; i++) {
                 this.board[startPosY + i][startPosX] = [1, false, ship];
