@@ -35,3 +35,36 @@ test("Gameboard reports false if not all ships are sunk", () => {
     gameboard.receiveAttack(2, 5);
     expect(gameboard.areAllShipsSunk()).toBe(false);
 });
+
+test("Cannot place ship out of bounds (horizontal overflow)", () => {
+    expect(() => gameboard.placeShip(3, 9 , 0, 0)).toThrow();
+});
+
+test("Cannot place ship out of bounds (vertical overflow)", () => {
+    expect(() => gameboard.placeShip(3, 0 , 9, 1)).toThrow();
+});
+
+test("Cannot place ship out of bounds (negative posX)", () => {
+    expect(() => gameboard.placeShip(3, -1 , 0, 0)).toThrow();
+    expect(() => gameboard.placeShip(3, -1 , 0, 1)).toThrow();
+});
+
+test("Cannot place ship out of bounds (negative posY)", () => {
+    expect(() => gameboard.placeShip(3, 0 , -1, 0)).toThrow();
+    expect(() => gameboard.placeShip(3, 0 , -1, 1)).toThrow();
+});
+
+test("Cannot place ship out of bounds (big posX)", () => {
+    expect(() => gameboard.placeShip(3, 10 , 0, 0)).toThrow();
+    expect(() => gameboard.placeShip(3, 10 , 0, 1)).toThrow();
+});
+
+test("Cannot place ship out of bounds (big posY)", () => {
+    expect(() => gameboard.placeShip(3, 0 , 10, 0)).toThrow();
+    expect(() => gameboard.placeShip(3, 0 , 10, 1)).toThrow();
+});
+
+test("Cannot place ship on top of other ship", () => {
+    gameboard.placeShip(3, 0, 0, 0);
+    expect(gameboard.placeShip(3, 0, 0, 1)).toBe(false);
+});
