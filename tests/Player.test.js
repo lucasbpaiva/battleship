@@ -1,5 +1,5 @@
-import { Player, ComputerPlayer } from "./Player.js";
-import { Gameboard } from "./Gameboard.js";
+import { Player, ComputerPlayer } from "../src/Player.js";
+import { Gameboard } from "../src/Gameboard.js";
 
 test("Player can attack enemy gameboard", () => {
     const enemyBoard = new Gameboard();

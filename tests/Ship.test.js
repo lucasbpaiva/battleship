@@ -1,4 +1,4 @@
-import { Ship } from "./Ship.js";
+import { Ship } from "../src/Ship.js";
 
 test("Ship sinks after getting enough hits", () => {
     const ship = new Ship(3);
