@@ -2,7 +2,7 @@ import { Ship } from "./Ship.js";
 
 export class Gameboard {
     constructor() {
-        //board will be 10x10 array where each element will be a 2-element array [0 for water or 1 for ship, a boolean indicating whether the coordinate has already been fired at]
+        //board will be 10x10 array where each element will be a 3-element array [0 for water or 1 for ship, a boolean indicating whether the coordinate has already been fired at, reference to the ship object]
         this.board = Array.from({ length: 10 }, () => Array.from({ length: 10 }, () => [0, false, null]));
         this.ships = [];
     }
@@ -54,6 +54,8 @@ export class Gameboard {
     }
 
     areAllShipsSunk() {
+        // prevent automatic "win" if no ships exist
+        if (this.ships.length === 0) return false;
         return this.ships.every((ship) => ship.isSunk());
     }
 }
