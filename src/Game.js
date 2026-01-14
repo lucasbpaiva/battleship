@@ -1,15 +1,15 @@
 import { Gameboard } from "./Gameboard.js";
 import { Player, ComputerPlayer } from "./Player.js";
 
-class Game {
+export class Game {
     constructor() {
         this.player1 = new Player("Human");
         this.player2 = new ComputerPlayer();
 
-        this.board1 = new Gameboard();
-        this.board2 = new Gameboard();
+        this.board1 = this.player1.board;
+        this.board2 = this.player2.board;
 
-        this.activePlayer = this.player1.name;
+        this.activePlayer = this.player1;
         this.gameOver = false;
     }
 
@@ -19,8 +19,30 @@ class Game {
     }
 
     playRound(x, y) {
+        if (this.gameOver || this.activePlayer !== this.player1) return;
 
+        // human attacks computer board
+        this.board2.receiveAttack(x, y);
+
+        if (this.board2.areAllShipsSunk()) {
+            this.gameOver = true;
+            return "Player wins!";
+        }
+
+        // switch to Computer's turn
+        this.activePlayer = this.player2;
+        setTimeout(() => this.#computerTurn(), 500) // small delay for realism
     }
 
-    #computerTurn() {}
+    #computerTurn() {
+        this.player2.randomAttack(this.board1);
+
+        if (this.board1.areAllShipsSunk()) {
+            this.gameOver = true;
+            return "Computer wins!";
+        }
+
+        // switch to Player's turn
+        this.activePlayer = this.player1;
+    }
 }
