@@ -41,16 +41,18 @@ export class Gameboard {
     }
 
     receiveAttack(x, y) {
-        //if position has not been fired at yet
+        // if position has not been fired at yet
         if (this.board[y][x][1] === false) {
             this.board[y][x][1] = true;
-            //determines whether or not a ship was hit 
+            // determines whether or not a ship was hit 
             if (this.board[y][x][0] === 1) {
-                //send hit to the ship if it was hit
+                // send hit to the ship if it was hit
                 let ship = this.board[y][x][2];
                 ship.hit();
             }
+            return true; // attack was valid
         }
+        return false; // repeated attack
     }
 
     areAllShipsSunk() {
