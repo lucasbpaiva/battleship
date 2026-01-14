@@ -3,6 +3,10 @@ import { Player, ComputerPlayer } from "./Player.js";
 
 export class Game {
     constructor() {
+        this.#initialize();
+    }
+
+    #initialize() {
         this.player1 = new Player("Human");
         this.player2 = new ComputerPlayer();
 
@@ -46,4 +50,8 @@ export class Game {
         // switch to Player's turn
         this.activePlayer = this.player1;
     }
-}
+
+    reset() {
+        this.#initialize();
+    }
+ }
