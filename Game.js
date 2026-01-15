@@ -18,8 +18,11 @@ export class Game {
     }
 
     initGame() {
-        // 1. Place ships for both boards (manually or randomly)
-        // 2. Render the initial UI
+        // randomize the computer's board
+        this.board2.placeShipsRandomly();
+
+        // randomize player1's board while the UI functionality for placing ships is not implemented
+        this.board1.placeShipsRandomly();
     }
 
     playRound(x, y) {
