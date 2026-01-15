@@ -1,7 +1,11 @@
 import { Game } from "../src/Game.js";
 
+let game;
+beforeEach(() => {
+    game = new Game();
+});
+
 test("playRound updates the enemy board and switches turns", () => {
-    const game = new Game();
     game.initGame();
 
     // player1 attacks computer board at (0, 0)
@@ -16,7 +20,6 @@ test("playRound updates the enemy board and switches turns", () => {
 
 test("computerTurn attacks the human board", () => {
     jest.useFakeTimers();
-    const game = new Game();
     game.initGame();
     game.playRound(0, 0);
     jest.runAllTimers();
@@ -31,7 +34,6 @@ test("computerTurn attacks the human board", () => {
 });
 
 test("human cannot make a move during computer's turn", () => {
-    const game = new Game();
     game.playRound(0, 0); // first move switches active player to player2
     const initialBoardState = JSON.stringify(game.board2.board);
     game.playRound(1, 1); // attempt second move immediately
@@ -40,7 +42,6 @@ test("human cannot make a move during computer's turn", () => {
 });
 
 test("game ends when all enemy ships are sunk", () => {
-    const game = new Game();
     game.board2.placeShip(1, 0, 0, 0);
     const result = game.playRound(0, 0); //sink the only ship
     expect(game.gameOver).toBe(true);
@@ -48,7 +49,6 @@ test("game ends when all enemy ships are sunk", () => {
 });
 
 test("player does not lose turn when attacking the same spot twice", () => {
-    const game = new Game();
     game.playRound(0, 0);
     game.activePlayer = game.player1; // manually reset turn for the sake of the test
     game.playRound(0, 0); // repeat move
@@ -57,7 +57,6 @@ test("player does not lose turn when attacking the same spot twice", () => {
 });
 
 test("resetting game clears boards and resets state", () => {
-    const game = new Game();
     game.board1.placeShip(3, 0, 0, 0);
     game.playRound(0, 0);
     game.reset();
