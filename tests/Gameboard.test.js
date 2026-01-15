@@ -68,3 +68,14 @@ test("Cannot place ship on top of other ship", () => {
     gameboard.placeShip(3, 0, 0, 0);
     expect(() => gameboard.placeShip(3, 0, 0, 1)).toThrow();
 });
+
+test("placeShipsRandomly places exactly 5 ships on the board", () => {
+    gameboard.placeShipsRandomly();
+    expect(gameboard.ships.length).toBe(5);
+});
+
+test("placeShipsRandomly does not overlap ships", () => {
+    gameboard.placeShipsRandomly();
+    const shipCells = gameboard.board.flat().filter(cell => cell[0] === 1).length;
+    expect(shipCells).toBe(17); // standard total: 5 + 4 + 3 + 3 + 2 = 17
+});
