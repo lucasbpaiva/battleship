@@ -9,7 +9,6 @@ export class Gameboard {
 
     placeShip(length, startPosX, startPosY, orientation) {
         const ship = new Ship(length);
-        this.ships.push(ship);
         if (startPosX < 0 || startPosX > 9 || startPosY < 0 || startPosY > 9) {
             throw new Error("Cannot place ship out of bounds");
         }
@@ -36,6 +35,26 @@ export class Gameboard {
             }
             for (let i = 0; i < length; i++) {
                 this.board[startPosY + i][startPosX] = [1, false, ship];
+            }
+        }
+        this.ships.push(ship);
+    }
+
+    placeShipsRandomly() {
+        const shipLengths = [5, 4, 3, 3, 2]; // standard battleship fleet
+        for (const length of shipLengths) {
+            let placed = false;
+            while (!placed) {
+                const orientation = Math.floor(Math.random() * 2);
+                const x = Math.floor(Math.random() * 10);
+                const y = Math.floor(Math.random() * 10);
+
+                try {
+                    this.placeShip(length, x, y, orientation);
+                    placed = true;
+                } catch (error) {
+                    continue;
+                }
             }
         }
     }
