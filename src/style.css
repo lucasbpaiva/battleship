@@ -1,5 +1,6 @@
 :root {
     --water-color: #00aaff;
+    --ship-color: #cccccc;
 }
 
 body {
@@ -23,4 +24,20 @@ body {
 
 .battleship-grid div {
     border: 1px solid #ffffff33;
+}
+
+#computer-board div {
+    cursor: crosshair;
+}
+
+.ship {
+    background-color: var(--ship-color);
+}
+
+.hit {
+    background-color: #ff4d4d;
+}
+
+.miss {
+    background-color: #ffffff;
 }
