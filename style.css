@@ -19,7 +19,6 @@ body {
 .battleship-grid {
     margin: 2vmin;
     display: grid;
-    background-color: var(--water-color);
     /* 4.6vmin * 10 = 46vmin + 2 * 2vmin from margin = 50vmin for each board */
     grid-template-rows: repeat(10, 4.6vmin);
     grid-template-columns: repeat(10, 4.6vmin);
@@ -27,13 +26,18 @@ body {
 
 .battleship-grid div {
     border: 1px solid var(--grid-color);
+    background-color: var(--water-color);
 }
 
 #computer-board div {
     cursor: crosshair;
 }
 
-.ship {
+#computer-board div:not(.miss):not(.hit):hover {
+    opacity: 50%;
+}
+
+.battleship-grid .ship {
     background-color: var(--ship-color);
 }
 
