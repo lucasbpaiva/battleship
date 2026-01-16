@@ -7,37 +7,55 @@ export class Gameboard {
         this.ships = [];
     }
 
+    #isWithinBounds(x, y) {
+        // checks if a coordinate is within the 10x10 grid
+        return x >= 0 && x < 10 && y >= 0 && y < 10;
+    }
+
+    #isAreaClear(length, x, y, orientation) {
+        // check a 1-cell buffer around the intended ship placement
+        const startX = x - 1;
+        const endX = orientation === 0 ? x + length : x + 1;
+        const startY = y - 1;
+        const endY = orientation === 1 ? y + length : y + 1;
+
+        for (let i = startX; i <= endX; i++) {
+            for (let j = startY; j<= endY; j++) {
+                // if coordinate is on the board...
+                if (this.#isWithinBounds(i, j)) {
+                    // ...and contains a ship
+                    if (this.board[j][i][0] === 1) {
+                        return false; // area not clear
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     placeShip(length, startPosX, startPosY, orientation) {
-        const ship = new Ship(length);
-        if (startPosX < 0 || startPosX > 9 || startPosY < 0 || startPosY > 9) {
+        if (!this.#isWithinBounds(startPosX, startPosY)) {
             throw new Error("Cannot place ship out of bounds");
         }
-        if (orientation === 0) { //horizontal
-            if (startPosX + length > 10) {
-                throw new Error("Cannot place ship out of bounds");
-            }
-            for (let i = 0; i < length; i++) {
-                if (this.board[startPosY][startPosX + i][0] === 1) {
-                    throw new Error("Cannot place ship on top of other");
-                }
-            }
-            for (let i = 0; i < length; i++) {
-                this.board[startPosY][startPosX + i] = [1, false, ship];
-            }  
-        } else if (orientation === 1) { //vertical
-            if (startPosY + length > 10) {
-                throw new Error("Cannot place ship out of bounds");
-            }
-            for (let i = 0; i < length; i++) {
-                if (this.board[startPosY + i][startPosX][0] === 1) {
-                    throw new Error("Cannot place ship on top of other");
-                }
-            }
-            for (let i = 0; i < length; i++) {
-                this.board[startPosY + i][startPosX] = [1, false, ship];
-            }
+        if (orientation === 0 && startPosX + length > 10) {
+            throw new Error("Cannot place ship out of bounds");
         }
+        if (orientation === 1 && startPosY + length > 10) {
+            throw new Error("Cannot place ship out of bounds");
+        }
+
+        // check for overlaps and adjacency
+        if (!this.#isAreaClear(length,startPosX, startPosY, orientation)) {
+            throw new Error("Invalid placement: too close to another ship");
+        }
+
+        const ship = new Ship(length);
         this.ships.push(ship);
+        for (let i = 0; i < length; i++) {
+            const x = orientation === 0 ? startPosX + i : startPosX;
+            const y = orientation === 1 ? startPosY + i : startPosY;
+            this.board[y][x] = [1, false, ship];
+        }
     }
 
     placeShipsRandomly() {
