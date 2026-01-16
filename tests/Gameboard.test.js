@@ -79,3 +79,16 @@ test("placeShipsRandomly does not overlap ships", () => {
     const shipCells = gameboard.board.flat().filter(cell => cell[0] === 1).length;
     expect(shipCells).toBe(17); // standard total: 5 + 4 + 3 + 3 + 2 = 17
 });
+
+test("Ships cannot be placed adjacent to each other", () => {
+    gameboard.placeShip(2, 0, 0, 0); // ship at positions (0,0) and (1,0)
+
+    // attempting to place ship at (2,0) - horizontally adjacent
+    expect(() => gameboard.placeShip(2, 2, 0, 0)).toThrow();
+
+    // attempting to place ship at (0,1) - vertically adjacent
+    expect(() => gameboard.placeShip(2, 0, 1, 0)).toThrow();
+
+    // attempting to place ship at (2,1) - diagonally adjacent
+    expect(() => gameboard.placeShip(2, 2, 1, 0)).toThrow();
+});
