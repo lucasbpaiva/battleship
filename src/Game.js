@@ -43,7 +43,7 @@ export class Game {
     }
 
     #computerTurn() {
-        this.player2.randomAttack(this.board1);
+        this.player2.makeMove(this.board1);
 
         if (this.board1.areAllShipsSunk()) {
             this.gameOver = true;
