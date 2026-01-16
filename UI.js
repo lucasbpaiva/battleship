@@ -14,6 +14,9 @@ export class UI {
 
             if (firedAt && isShip) {
                 square.classList.add("hit");
+                if (!isEnemy) {
+                    square.classList.add("ship");
+                }
             } else if (firedAt) {
                 square.classList.add("miss");
             } else if (isShip && !isEnemy) {
