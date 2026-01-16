@@ -1,6 +1,9 @@
 :root {
     --water-color: #00aaff;
     --ship-color: #cccccc;
+    --hit-color: #ff4d4d;
+    --miss-color: #ffffff;
+    --grid-color: #ffffff33;
 }
 
 body {
@@ -23,7 +26,7 @@ body {
 }
 
 .battleship-grid div {
-    border: 1px solid #ffffff33;
+    border: 1px solid var(--grid-color);
 }
 
 #computer-board div {
@@ -34,10 +37,26 @@ body {
     background-color: var(--ship-color);
 }
 
-.hit {
-    background-color: #ff4d4d;
+
+.miss, .hit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.miss {
-    background-color: #ffffff;
+.hit::after,
+.miss::after {
+    content: "";
+    position: absolute;
+    border-radius: 100%;
+    width: 2vmin;
+    height: 2vmin;
+}
+
+.miss::after {
+    background-color: var(--miss-color);
+}
+
+.hit::after {
+    background-color: var(--hit-color);
 }
