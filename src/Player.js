@@ -17,24 +17,48 @@ export class ComputerPlayer extends Player {
     constructor() {
         super("Computer");
         this.targetQueue = []; // squares to attack next after a hit
+        this.currentHits = []; // track hits on the current ship
     }
 
     makeMove(enemyGameboard) {
-        let x, y;
+        let coords = this.targetQueue.length > 0 ? this.targetQueue.shift() : this.#getRandomCoords(enemyGameboard);
 
-        // target mode (pick from queue)
-        if (this.targetQueue.length > 0) {
-            // parentheses needed for this destructuring assignment
-            ({ x, y } = this.targetQueue.shift());
-        } else { // hunt mode (random attack)
-            ({ x, y } = this.#getRandomCoords(enemyGameboard));
+        const result = enemyGameboard.receiveAttack(coords.x, coords.y);
+
+        if (result.type === "hit") {
+            if (result.sunk) {
+                // ship is sunk, clear memory and return to random guessing
+                this.targetQueue = [];
+                this.currentHits = [];
+            } else {
+                // if not sunk, refine search
+                this.currentHits.push(coords);
+                this.#refineTargetQueue(enemyGameboard);
+            }
         }
+    }
 
-        enemyGameboard.receiveAttack(x, y);
+    #refineTargetQueue(enemyGameboard) {
+        this.targetQueue = []; // clear old neighbours to prioritize axis
 
-        // if it was a hit, add neighbours to the queue
-        if (enemyGameboard.board[y][x][0] === 1) {
-            this.#addNeighboursToQueue(x, y, enemyGameboard);
+        if (this.currentHits.length === 1) {
+            // first hit, still need to check all 4 directions
+            this.#addNeighboursToQueue(this.currentHits[0].x, this.currentHits[0].y, enemyGameboard);
+        } else {
+            // if there are 2 or more hits we found the axis
+            const isHorizontal = this.currentHits[0].y === this.currentHits[1].y;
+
+            const Xs = this.currentHits.map(coord => coord.x);
+            const Ys = this.currentHits.map(coord => coord.y);
+
+            // try both ends in the correct axis
+            if (isHorizontal) {
+                this.#addIfValid(Math.min(...Xs) - 1, Ys[0], enemyGameboard);
+                this.#addIfValid(Math.max(...Xs) + 1, Ys[0], enemyGameboard);
+            } else { // vertical
+                this.#addIfValid(Xs[0], Math.min(...Ys) - 1, enemyGameboard);
+                this.#addIfValid(Xs[0], Math.max(...Ys) + 1, enemyGameboard);
+            }
         }
     }
 
@@ -54,17 +78,18 @@ export class ComputerPlayer extends Player {
         return { x, y };
     }
 
+    #addIfValid(x, y, enemyGameboard) {
+        const withinBounds = x >= 0 && x < 10 && y >= 0 && y < 10;
+        const firedAt = enemyGameboard.board[y][x][1];
+        if (withinBounds && !firedAt) {
+            this.targetQueue.push({ x, y });
+        }
+    }
+
     #addNeighboursToQueue(x, y, enemyGameboard) {
         const directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]; // up, down, right, left
         directions.forEach(([dx, dy]) => {
-            const nx = x + dx;
-            const ny = y + dy;
-            const withinBounds = nx >= 0 && nx < 10 && ny >= 0 && ny < 10;
-            const firedAt = enemyGameboard.board[ny][nx][1];
-            const duplicate = this.targetQueue.some(t => t.x === nx && t.y === ny);
-            if (withinBounds && !firedAt && !duplicate) {
-                this.targetQueue.push({ x: nx, y: ny });
-            }
+            this.#addIfValid(x + dx, y + dy, enemyGameboard)
         });
     }
 }
