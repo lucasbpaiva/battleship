@@ -69,8 +69,9 @@ export class ComputerPlayer extends Player {
         while (!validMove) {
             x = Math.floor(Math.random() * 10);
             y = Math.floor(Math.random() * 10);
+            const visited = enemyGameboard.board[y][x][1];
 
-            if (enemyGameboard.board[y][x][1] === false) {
+            if (!visited) {
                 validMove = true;
             }
         }
