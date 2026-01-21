@@ -19,7 +19,14 @@ function refreshUI() {
 function setupEventListeners() {
     computerBoardDOM.addEventListener("click", (event) => {
         if (game.gameOver || game.activePlayer !== game.player1) return;
-        const result = game.playRound(event.target.dataset.x, event.target.dataset.y);
+
+        // prevent strings from entering game logic
+        const x = Number(event.target.dataset.x);
+        const y = Number(event.target.dataset.y);
+        
+        if (isNaN(x) || isNaN(y)) return; // safety check for clicking gaps
+
+        const result = game.playRound(x, y);
         if (result) UI.updateStatus(result);
         refreshUI();
 
