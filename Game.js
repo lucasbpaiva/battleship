@@ -29,8 +29,8 @@ export class Game {
         if (this.gameOver || this.activePlayer !== this.player1) return;
 
         // try to attack computer board and record whether it is a valid move
-        const isValidMove = this.board2.receiveAttack(x, y);
-        if (!isValidMove) return; // exit if not valid to prevent losing a turn
+        const invalidMove = this.board2.receiveAttack(x, y).type === "invalid";
+        if (invalidMove) return; // exit if not valid to prevent losing a turn
 
         if (this.board2.areAllShipsSunk()) {
             this.gameOver = true;
