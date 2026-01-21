@@ -80,9 +80,12 @@ export class ComputerPlayer extends Player {
 
     #addIfValid(x, y, enemyGameboard) {
         const withinBounds = x >= 0 && x < 10 && y >= 0 && y < 10;
-        const firedAt = enemyGameboard.board[y][x][1];
-        if (withinBounds && !firedAt) {
-            this.targetQueue.push({ x, y });
+        // check if withinBounds BEFORE trying to access row and cell
+        if (withinBounds) {
+            const cell = enemyGameboard.board[y][x];
+            if (cell && cell[1] === false) { // not fired at yet
+                this.targetQueue.push({ x, y });
+            }
         }
     }
 
