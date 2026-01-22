@@ -42,6 +42,7 @@ body {
     background-color: var(--ship-color);
 }
 
+/* round corners of ships */
 .ship:not(.ship-has-left).ship-has-right {
     border-top-left-radius: 2.3vmin;
     border-bottom-left-radius: 2.3vmin;
@@ -61,7 +62,7 @@ body {
     border-top-left-radius: 2.3vmin;
     border-top-right-radius: 2.3vmin;
 }
-
+/* ---------------------------------------- */
 
 .miss, .hit {
     display: flex;
