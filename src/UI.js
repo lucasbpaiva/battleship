@@ -14,14 +14,27 @@ export class UI {
 
             if (firedAt && isShip) {
                 square.classList.add("hit");
-                if (!isEnemy) {
-                    square.classList.add("ship");
-                }
             } else if (firedAt) {
                 square.classList.add("miss");
-            } else if (isShip && !isEnemy) {
-                // only show ships on the player's own board
+            } 
+
+            // only show ships on the player's own board or ones that have been sunk
+            if (isShip && (!isEnemy || cell[2].isSunk())) { 
                 square.classList.add("ship");
+
+                // helper to check if a coord is of the same ship
+                const isSameShip = (x, y) => {
+                    if (x < 0 || x >= 10 || y < 0 || y >= 10) return false;
+                    const neighbour = gameboard.board[y][x];
+                    const isShip = neighbour[0] === 1;
+                    const isSame = neighbour[2] === cell[2];
+                    return isShip && isSame;
+                };
+                
+                if (isSameShip(x - 1, y)) square.classList.add("ship-has-left");
+                if (isSameShip(x + 1, y)) square.classList.add("ship-has-right");
+                if (isSameShip(x, y - 1)) square.classList.add("ship-has-top");
+                if (isSameShip(x, y + 1)) square.classList.add("ship-has-bottom");
             }
 
             grid.appendChild(square);
