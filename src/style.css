@@ -22,6 +22,7 @@ body {
     /* 4.6vmin * 10 = 46vmin + 2 * 2vmin from margin = 50vmin for each board */
     grid-template-rows: repeat(10, 4.6vmin);
     grid-template-columns: repeat(10, 4.6vmin);
+    background-color: var(--water-color);
 }
 
 .battleship-grid div {
@@ -34,11 +35,31 @@ body {
 }
 
 #computer-board div:not(.miss):not(.hit):hover {
-    opacity: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .battleship-grid .ship {
     background-color: var(--ship-color);
+}
+
+.ship:not(.ship-has-left).ship-has-right {
+    border-top-left-radius: 2.3vmin;
+    border-bottom-left-radius: 2.3vmin;
+}
+
+.ship:not(.ship-has-right).ship-has-left {
+    border-top-right-radius: 2.3vmin;
+    border-bottom-right-radius: 2.3vmin;
+}
+
+.ship:not(.ship-has-bottom).ship-has-top {
+    border-bottom-left-radius: 2.3vmin;
+    border-bottom-right-radius: 2.3vmin;
+}
+
+.ship:not(.ship-has-top).ship-has-bottom {
+    border-top-left-radius: 2.3vmin;
+    border-top-right-radius: 2.3vmin;
 }
 
 
