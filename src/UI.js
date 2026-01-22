@@ -1,18 +1,23 @@
 export class UI {
     static renderGrid(gameboard, grid, isEnemy = false) {
-        grid.textContent = ""; // clear existing grid
-        for (let i = 0; i < 100; i ++) {
-            const square = document.createElement("div");
-            const x = i % 10;
-            const y = Math.floor(i / 10);
-            square.dataset.x = x;
-            square.dataset.y = y;
+        if (grid.children.length === 0) {
+            for (let i = 0; i < 100; i ++) {
+                const square = document.createElement("div");
+                square.dataset.x = i % 10;
+                square.dataset.y = Math.floor(i / 10);
+                grid.appendChild(square);
+            }
+        }
 
+        const squares = grid.querySelectorAll("div");
+        squares.forEach(square => {
+            const x = Number(square.dataset.x);
+            const y = Number(square.dataset.y);
             const cell = gameboard.board[y][x];
             const isShip = cell[0] === 1;
             const firedAt = cell[1];
 
-            if (firedAt && isShip) {
+            if (firedAt && isShip && !square.classList.contains("hit")) {
                 square.classList.add("hit");
             } else if (firedAt) {
                 square.classList.add("miss");
@@ -36,9 +41,7 @@ export class UI {
                 if (isSameShip(x, y - 1)) square.classList.add("ship-has-top");
                 if (isSameShip(x, y + 1)) square.classList.add("ship-has-bottom");
             }
-
-            grid.appendChild(square);
-        }
+        });
     }
 
     static updateStatus(message) {
