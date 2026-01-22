@@ -36,8 +36,10 @@ function setupEventListeners() {
                 refreshUI();
                 if (game.gameOver) {
                     UI.updateStatus("Computer wins!");
+                } else {
+                    UI.updateStatus("Your Turn");
                 }
-            }, 600);
+            }, 700);
         }
     });
 }
