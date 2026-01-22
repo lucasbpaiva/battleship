@@ -29,7 +29,8 @@ export class Game {
         if (this.gameOver || this.activePlayer !== this.player1) return;
 
         // try to attack computer board and record whether it is a valid move
-        const invalidMove = this.board2.receiveAttack(x, y).type === "invalid";
+        const result = this.board2.receiveAttack(x, y);
+        const invalidMove = result.type === "invalid";
         if (invalidMove) return; // exit if not valid to prevent losing a turn
 
         if (this.board2.areAllShipsSunk()) {
@@ -37,9 +38,14 @@ export class Game {
             return "Player wins!";
         }
 
+        if (result.type === "hit" && result.sunk) {
+            return "You sunk a ship!";
+        }
+
         // switch to Computer's turn
         this.activePlayer = this.player2;
-        setTimeout(() => this.#computerTurn(), 500) // small delay for realism
+        setTimeout(() => this.#computerTurn(), 600) // small delay for realism
+        return "Computer's Turn";
     }
 
     #computerTurn() {
@@ -47,7 +53,7 @@ export class Game {
 
         if (this.board1.areAllShipsSunk()) {
             this.gameOver = true;
-            return "Computer wins!";
+            return;
         }
 
         // switch to Player's turn
