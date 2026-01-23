@@ -38,10 +38,6 @@ export class Game {
             return "Player wins!";
         }
 
-        if (result.type === "hit" && result.sunk) {
-            return "You sunk a ship!";
-        }
-
         // switch to Computer's turn
         this.activePlayer = this.player2;
         setTimeout(() => this.#computerTurn(), 600) // small delay for realism
