@@ -26,6 +26,7 @@ body {
 }
 
 .battleship-grid div {
+    position: relative;
     border: 1px solid var(--grid-color);
     background-color: var(--water-color);
 }
@@ -77,6 +78,11 @@ body {
     border-radius: 100%;
     width: 2vmin;
     height: 2vmin;
+
+    /* center peg in the square */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) /* and keep it centered during animation */
 }
 
 .miss::after {
@@ -85,4 +91,17 @@ body {
 
 .hit::after {
     background-color: var(--hit-color);
+    animation: hit-impact 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes hit-impact {
+    0% {
+        /* including -50% translations so it stays centered while scaling */
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
