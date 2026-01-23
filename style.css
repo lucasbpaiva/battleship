@@ -10,10 +10,20 @@ body {
     font-family: "Montserrat", sans-serif;
 }
 
+.title {
+    font-family: "Bangers", system-ui;
+    font-size: 5rem;
+    margin: 0;
+}
+
 .container {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.board-name {
+    text-align: center;
 }
 
 .battleship-grid {
