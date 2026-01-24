@@ -48,4 +48,23 @@ export class UI {
         const infoText = document.querySelector(".info-text");
         infoText.textContent = message;
     }
+
+    static showGameOver(winner) {
+        const modal = document.getElementById("game-over-modal");
+        const message = document.getElementById("result-message");
+
+        modal.classList.remove("hidden");
+        message.textContent = winner === "player" ? "You Win!" : "Game Over";
+        message.style.color = winner === "player" ? "#ffffff" : "var(--hit-color)";
+    }
+
+    static setupRestart(handler) {
+        const restartBtn = document.getElementById("restart-btn");
+        const modal = document.getElementById("game-over-modal");
+
+        restartBtn.addEventListener("click", () => {
+            modal.classList.add("hidden");
+            handler();
+        });
+    }
 }
