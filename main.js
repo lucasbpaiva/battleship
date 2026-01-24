@@ -1,11 +1,13 @@
 import { Game } from "./Game.js";
 import { UI } from "./UI.js";
 
-const game = new Game();
+let game = new Game();
 const playerBoardDOM = document.getElementById("player-board");
 const computerBoardDOM = document.getElementById("computer-board");
 
 function init() {
+    playerBoardDOM.textContent = "";
+    computerBoardDOM.textContent = "";
     game.initGame(); // handles random ship placement
     refreshUI();
     setupEventListeners();
@@ -29,13 +31,24 @@ function setupEventListeners() {
         const result = game.playRound(x, y);
         if (result) UI.updateStatus(result);
         refreshUI();
+        if (result === "Player wins!") {
+            UI.showGameOver("player");
+            UI.setupRestart(() => {
+                game = new Game();
+                init();
+            });
+        }
 
         // refresh UI again after computer's delay
         if (!game.gameOver) {
             setTimeout(() => {
                 refreshUI();
                 if (game.gameOver) {
-                    UI.updateStatus("Computer wins!");
+                    UI.showGameOver("computer");
+                    UI.setupRestart(() => {
+                        game = new Game();
+                        init();
+                    });
                 } else {
                     UI.updateStatus("Your Turn");
                 }
