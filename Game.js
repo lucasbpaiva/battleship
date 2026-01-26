@@ -1,4 +1,3 @@
-import { Gameboard } from "./Gameboard.js";
 import { Player, ComputerPlayer } from "./Player.js";
 
 export class Game {
