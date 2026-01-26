@@ -24,6 +24,30 @@
     <div class="container">
         <h3 class="info-text">Your Turn</h3>
     </div>
+    <div class="container">
+        <div class="ship-inventory">
+            <h3>Your Fleet</h3>
+            <div class="ship-container" draggable="true" data-length="5" data-name="carrier">
+                <div class="ship-preview carrier"></div>
+            </div>
+            <div class="ship-container" draggable="true" data-length="4" data-name="battleship">
+                <div class="ship-preview battleship"></div>
+            </div>
+            <div class="ship-container" draggable="true" data-length="3" data-name="cruiser">
+                <div class="ship-preview cruiser"></div>
+            </div>
+            <div class="ship-container" draggable="true" data-length="3" data-name="submarine">
+                <div class="ship-preview submarine"></div>
+            </div>
+            <div class="ship-container" draggable="true" data-length="2" data-name="destroyer">
+                <div class="ship-preview destroyer"></div>
+            </div>
+            <div class="container buttons">
+                <button id="rotate-btn">Rotate Ships</button>
+                <button id="shuffle-btn">Random Placement</button>
+            </div>
+        </div>
+    </div>
     <div class="modal hidden" id="game-over-modal">
         <div class="modal-content">
             <h2 id="result-message">You win!</h2>
