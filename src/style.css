@@ -8,6 +8,11 @@
 
 body {
     font-family: "Montserrat", sans-serif;
+    /* prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard property */
 }
 
 .modal {
@@ -167,3 +172,38 @@ body {
         opacity: 1;
     }
 }
+
+.ship-inventory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vmin;
+    margin: 2vmin;
+}
+
+.ship-container {
+    cursor: grab;
+}
+
+.ship-preview {
+    background-color: var(--ship-color);
+    border-radius: 2vmin;
+    height: 4.6vmin;
+}
+
+.carrier { width: calc(4.6vmin * 5); }
+.battleship { width: calc(4.6vmin * 4); }
+.cruiser { width: calc(4.6vmin * 3); }
+.submarine { width: calc(4.6vmin * 3); }
+.destroyer { width: calc(4.6vmin * 2); }
+
+/* vertical orientation */
+.ship-inventory.vertical .ship-preview{
+    width: 4.6vmin;
+}
+
+.ship-inventory.vertical .carrier { height: calc(4.6vmin * 5); }
+.ship-inventory.vertical .battleship { height: calc(4.6vmin * 4); }
+.ship-inventory.vertical .cruiser { height: calc(4.6vmin * 3); }
+.ship-inventory.vertical .submarine { height: calc(4.6vmin * 3); }
+.ship-inventory.vertical .destroyer { height: calc(4.6vmin * 2); }
