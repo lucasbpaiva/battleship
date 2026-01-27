@@ -132,7 +132,7 @@ body {
     gap: 2rem;
 }
 
-#rotate-btn, #shuffle-btn {
+.buttons button {
     background-color: #ff8000;
     padding: .5em 1em;
     cursor: pointer;
