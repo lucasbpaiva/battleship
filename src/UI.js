@@ -67,4 +67,36 @@ export class UI {
             handler();
         });
     }
+
+    setupDragEventListeners(onShipDrop) {
+        const playerGrid = document.getElementById("player-board");
+        const ships = document.querySelectorAll(".ship-container");
+
+        ships.forEach(ship => {
+            ship.addEventListener("dragstart", (event) => {
+                event.dataTransfer.setData("shipName", event.target.dataset.name);
+                event.dataTransfer.setData("shipLength", event.target.dataset.length);
+                event.target.classList.add("dragging");
+            });
+
+            ship.addEventListener("dragend", (event) => {
+                event.target.classList.remove("dragging");
+            });
+        });
+
+        playerGrid.addEventListener("dragover", (event) => {
+            event.preventDefault();
+        });
+
+        playerGrid.addEventListener("drop", (event) => {
+            event.preventDefault();
+            const shipName = event.dataTransfer.getData("shipName");
+            const shipLength = event.dataTransfer.getData("shipLength");
+
+            const x = Number(event.target.dataset.x);
+            const y = Number(event.target.dataset.y);
+
+            onShipDrop(shipName, shipLength, x, y);
+        });
+    }
 }
