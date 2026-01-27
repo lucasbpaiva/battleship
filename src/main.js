@@ -8,21 +8,38 @@ const playerBoardDOM = document.getElementById("player-board");
 const computerBoardDOM = document.getElementById("computer-board");
 
 let currentOrientation = "horizontal";
+const shipInventory = document.querySelector(".ship-inventory");
 const rotateBtn = document.getElementById("rotate-btn");
 const shuffleBtn = document.getElementById("shuffle-btn");
-const shipInventory = document.querySelector(".ship-inventory");
+const startBtn = document.getElementById("start-btn");
+const resetBtn = document.getElementById("reset-btn");
 
 rotateBtn.addEventListener("click", () => {
     currentOrientation = currentOrientation === "horizontal" ? "vertical" : "horizontal";
     shipInventory.classList.toggle("vertical");
 });
 
-shuffleBtn.addEventListener("click", () => {
-    shipInventory.textContent = "";
+function autoPlacePlayerShips() {
     game.board1 = new Gameboard();
     playerBoardDOM.textContent = "";
     game.board1.placeShipsRandomly();
+}
+
+shuffleBtn.addEventListener("click", () => {
+    shipInventory.textContent = "";
+    autoPlacePlayerShips();
     refreshUI();
+});
+
+startBtn.addEventListener("click", () => {
+    document.querySelector(".ship-placement").classList.add("hidden");
+    document.querySelector(".computer-side").classList.remove("hidden");
+    const shipSquares = playerBoardDOM.querySelectorAll(".ship");
+    if (shipSquares !== 17) {
+        // not all ships placed, default to random placement
+        autoPlacePlayerShips();
+    }
+    init();
 });
 
 ui.renderGrid(game.board1, playerBoardDOM);
@@ -86,5 +103,3 @@ function setupEventListeners() {
         }
     });
 }
-
-// init();
