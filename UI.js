@@ -76,11 +76,6 @@ export class UI {
             ship.addEventListener("dragstart", (event) => {
                 event.dataTransfer.setData("shipName", event.target.dataset.name);
                 event.dataTransfer.setData("shipLength", event.target.dataset.length);
-                event.target.classList.add("dragging");
-            });
-
-            ship.addEventListener("dragend", (event) => {
-                event.target.classList.remove("dragging");
             });
         });
 
