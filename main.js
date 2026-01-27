@@ -6,6 +6,24 @@ let ui = new UI();
 const playerBoardDOM = document.getElementById("player-board");
 const computerBoardDOM = document.getElementById("computer-board");
 
+let currentOrientation = "horizontal";
+const rotateBtn = document.getElementById("rotate-btn");
+
+rotateBtn.addEventListener("click", () => {
+    currentOrientation = currentOrientation === "horizontal" ? "vertical" : "horizontal";
+    document.querySelector(".ship-inventory").classList.toggle("vertical");
+});
+
+ui.renderGrid(game.board1, playerBoardDOM);
+ui.setupDragEventListeners((name, length, x, y) => {
+    const successfullyPlaced = game.board1.placeShip(length, x, y, currentOrientation);
+
+    if (successfullyPlaced) {
+        ui.renderGrid(game.board1, playerBoardDOM);
+        document.querySelector(`[data-name="${name}"]`).remove();
+    }
+});
+
 function init() {
     playerBoardDOM.textContent = "";
     computerBoardDOM.textContent = "";
