@@ -1,5 +1,5 @@
 export class UI {
-    static renderGrid(gameboard, grid, isEnemy = false) {
+    renderGrid(gameboard, grid, isEnemy = false) {
         if (grid.children.length === 0) {
             for (let i = 0; i < 100; i ++) {
                 const square = document.createElement("div");
@@ -44,12 +44,12 @@ export class UI {
         });
     }
 
-    static updateStatus(message) {
+    updateStatus(message) {
         const infoText = document.querySelector(".info-text");
         infoText.textContent = message;
     }
 
-    static showGameOver(winner) {
+    showGameOver(winner) {
         const modal = document.getElementById("game-over-modal");
         const message = document.getElementById("result-message");
 
@@ -58,7 +58,7 @@ export class UI {
         message.style.color = winner === "player" ? "#ffffff" : "var(--hit-color)";
     }
 
-    static setupRestart(handler) {
+    setupRestart(handler) {
         const restartBtn = document.getElementById("restart-btn");
         const modal = document.getElementById("game-over-modal");
 
