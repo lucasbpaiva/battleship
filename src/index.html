@@ -16,37 +16,37 @@
             <h3 class="board-name">Your Fleet</h3>
             <div class="battleship-grid" id="player-board"></div>
         </div>
-        <div class="computer-side">
+        <div class="computer-side hidden">
             <h3 class="board-name">Enemy Waters</h3>
             <div class="battleship-grid" id="computer-board"></div>
         </div>
-    </div>
-    <div class="container">
-        <h3 class="info-text">Your Turn</h3>
-    </div>
-    <div class="container">
-        <div class="ship-inventory">
-            <h3>Your Fleet</h3>
-            <div class="ship-container" draggable="true" data-length="5" data-name="carrier">
-                <div class="ship-preview carrier"></div>
-            </div>
-            <div class="ship-container" draggable="true" data-length="4" data-name="battleship">
-                <div class="ship-preview battleship"></div>
-            </div>
-            <div class="ship-container" draggable="true" data-length="3" data-name="cruiser">
-                <div class="ship-preview cruiser"></div>
-            </div>
-            <div class="ship-container" draggable="true" data-length="3" data-name="submarine">
-                <div class="ship-preview submarine"></div>
-            </div>
-            <div class="ship-container" draggable="true" data-length="2" data-name="destroyer">
-                <div class="ship-preview destroyer"></div>
+        <div class="ship-placement">
+            <h3>Place your ships</h3>
+            <div class="ship-inventory vertical">
+                <div class="ship-container" draggable="true" data-length="5" data-name="carrier">
+                    <div class="ship-preview carrier"></div>
+                </div>
+                <div class="ship-container" draggable="true" data-length="4" data-name="battleship">
+                    <div class="ship-preview battleship"></div>
+                </div>
+                <div class="ship-container" draggable="true" data-length="3" data-name="cruiser">
+                    <div class="ship-preview cruiser"></div>
+                </div>
+                <div class="ship-container" draggable="true" data-length="3" data-name="submarine">
+                    <div class="ship-preview submarine"></div>
+                </div>
+                <div class="ship-container" draggable="true" data-length="2" data-name="destroyer">
+                    <div class="ship-preview destroyer"></div>
+                </div>
             </div>
             <div class="container buttons">
                 <button id="rotate-btn">Rotate Ships</button>
                 <button id="shuffle-btn">Random Placement</button>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <h3 class="info-text"></h3>
     </div>
     <div class="modal hidden" id="game-over-modal">
         <div class="modal-content">
