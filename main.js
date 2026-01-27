@@ -2,6 +2,7 @@ import { Game } from "./Game.js";
 import { UI } from "./UI.js";
 
 let game = new Game();
+let ui = new UI();
 const playerBoardDOM = document.getElementById("player-board");
 const computerBoardDOM = document.getElementById("computer-board");
 
@@ -14,8 +15,8 @@ function init() {
 }
 
 function refreshUI() {
-    UI.renderGrid(game.board1, playerBoardDOM, false);
-    UI.renderGrid(game.board2, computerBoardDOM, true);
+    ui.renderGrid(game.board1, playerBoardDOM, false);
+    ui.renderGrid(game.board2, computerBoardDOM, true);
 }
 
 function setupEventListeners() {
@@ -29,11 +30,11 @@ function setupEventListeners() {
         if (isNaN(x) || isNaN(y)) return; // safety check for clicking gaps
 
         const result = game.playRound(x, y);
-        if (result) UI.updateStatus(result);
+        if (result) ui.updateStatus(result);
         refreshUI();
         if (result === "Player wins!") {
-            UI.showGameOver("player");
-            UI.setupRestart(() => {
+            ui.showGameOver("player");
+            ui.setupRestart(() => {
                 game = new Game();
                 init();
             });
@@ -44,13 +45,13 @@ function setupEventListeners() {
             setTimeout(() => {
                 refreshUI();
                 if (game.gameOver) {
-                    UI.showGameOver("computer");
-                    UI.setupRestart(() => {
+                    ui.showGameOver("computer");
+                    ui.setupRestart(() => {
                         game = new Game();
                         init();
                     });
                 } else {
-                    UI.updateStatus("Your Turn");
+                    ui.updateStatus("Your Turn");
                 }
             }, 700);
         }
