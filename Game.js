@@ -19,9 +19,6 @@ export class Game {
     initGame() {
         // randomize the computer's board
         this.board2.placeShipsRandomly();
-
-        // randomize player1's board while the UI functionality for placing ships is not implemented
-        this.board1.placeShipsRandomly();
     }
 
     playRound(x, y) {
