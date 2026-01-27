@@ -79,6 +79,68 @@ body {
     width: 100%;
 }
 
+.ship-placement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ship-inventory {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5vmin;
+    /* margin: 2vmin; */
+    height: 46vmin;
+    width: 46vmin;
+}
+
+.ship-container {
+    cursor: grab;
+}
+
+.ship-preview {
+    background-color: var(--ship-color);
+    border-radius: 2vmin;
+    height: 4.6vmin;
+}
+
+.carrier { width: calc(4.6vmin * 5); }
+.battleship { width: calc(4.6vmin * 4); }
+.cruiser { width: calc(4.6vmin * 3); }
+.submarine { width: calc(4.6vmin * 3); }
+.destroyer { width: calc(4.6vmin * 2); }
+
+/* vertical orientation */
+.ship-inventory.vertical {
+    flex-direction: row;
+}
+
+.ship-inventory.vertical .ship-preview{
+    width: 4.6vmin;
+}
+
+.ship-inventory.vertical .carrier { height: calc(4.6vmin * 5); }
+.ship-inventory.vertical .battleship { height: calc(4.6vmin * 4); }
+.ship-inventory.vertical .cruiser { height: calc(4.6vmin * 3); }
+.ship-inventory.vertical .submarine { height: calc(4.6vmin * 3); }
+.ship-inventory.vertical .destroyer { height: calc(4.6vmin * 2); }
+
+.computer-side.hidden {
+    display: none;
+}
+
+.buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+#rotate-btn, #shuffle-btn {
+    background-color: #ff8000;
+    padding: .5em 1em;
+}
+
 .board-name {
     text-align: center;
 }
@@ -172,38 +234,3 @@ body {
         opacity: 1;
     }
 }
-
-.ship-inventory {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5vmin;
-    margin: 2vmin;
-}
-
-.ship-container {
-    cursor: grab;
-}
-
-.ship-preview {
-    background-color: var(--ship-color);
-    border-radius: 2vmin;
-    height: 4.6vmin;
-}
-
-.carrier { width: calc(4.6vmin * 5); }
-.battleship { width: calc(4.6vmin * 4); }
-.cruiser { width: calc(4.6vmin * 3); }
-.submarine { width: calc(4.6vmin * 3); }
-.destroyer { width: calc(4.6vmin * 2); }
-
-/* vertical orientation */
-.ship-inventory.vertical .ship-preview{
-    width: 4.6vmin;
-}
-
-.ship-inventory.vertical .carrier { height: calc(4.6vmin * 5); }
-.ship-inventory.vertical .battleship { height: calc(4.6vmin * 4); }
-.ship-inventory.vertical .cruiser { height: calc(4.6vmin * 3); }
-.ship-inventory.vertical .submarine { height: calc(4.6vmin * 3); }
-.ship-inventory.vertical .destroyer { height: calc(4.6vmin * 2); }
