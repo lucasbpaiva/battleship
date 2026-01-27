@@ -29,7 +29,7 @@ body {
     z-index: 1000;
 }
 
-.modal.hidden {
+.hidden {
     display: none;
 }
 
@@ -127,10 +127,6 @@ body {
 .ship-inventory.vertical .submarine { height: calc(4.6vmin * 3); }
 .ship-inventory.vertical .destroyer { height: calc(4.6vmin * 2); }
 
-.computer-side.hidden {
-    display: none;
-}
-
 .buttons {
     display: flex;
     gap: 2rem;
@@ -139,6 +135,7 @@ body {
 #rotate-btn, #shuffle-btn {
     background-color: #ff8000;
     padding: .5em 1em;
+    cursor: pointer;
 }
 
 .board-name {
