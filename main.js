@@ -10,13 +10,15 @@ const computerBoardDOM = document.getElementById("computer-board");
 let currentOrientation = "horizontal";
 const rotateBtn = document.getElementById("rotate-btn");
 const shuffleBtn = document.getElementById("shuffle-btn");
+const shipInventory = document.querySelector(".ship-inventory");
 
 rotateBtn.addEventListener("click", () => {
     currentOrientation = currentOrientation === "horizontal" ? "vertical" : "horizontal";
-    document.querySelector(".ship-inventory").classList.toggle("vertical");
+    shipInventory.classList.toggle("vertical");
 });
 
 shuffleBtn.addEventListener("click", () => {
+    shipInventory.textContent = "";
     game.board1 = new Gameboard();
     playerBoardDOM.textContent = "";
     game.board1.placeShipsRandomly();
