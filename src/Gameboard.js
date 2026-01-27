@@ -56,6 +56,8 @@ export class Gameboard {
             const y = orientation === 1 ? startPosY + i : startPosY;
             this.board[y][x] = [1, false, ship];
         }
+
+        return "Ship successfully placed";
     }
 
     placeShipsRandomly() {
