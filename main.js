@@ -1,4 +1,5 @@
 import { Game } from "./Game.js";
+import { Gameboard } from "./Gameboard.js";
 import { UI } from "./UI.js";
 
 let game = new Game();
@@ -8,10 +9,18 @@ const computerBoardDOM = document.getElementById("computer-board");
 
 let currentOrientation = "horizontal";
 const rotateBtn = document.getElementById("rotate-btn");
+const shuffleBtn = document.getElementById("shuffle-btn");
 
 rotateBtn.addEventListener("click", () => {
     currentOrientation = currentOrientation === "horizontal" ? "vertical" : "horizontal";
     document.querySelector(".ship-inventory").classList.toggle("vertical");
+});
+
+shuffleBtn.addEventListener("click", () => {
+    game.board1 = new Gameboard();
+    playerBoardDOM.textContent = "";
+    game.board1.placeShipsRandomly();
+    refreshUI();
 });
 
 ui.renderGrid(game.board1, playerBoardDOM);
@@ -76,4 +85,4 @@ function setupEventListeners() {
     });
 }
 
-init();
+// init();
