@@ -29,7 +29,9 @@ body {
     z-index: 1000;
 }
 
-.hidden {
+.ship-placement.hidden,
+.modal.hidden,
+.computer-side.hidden {
     display: none;
 }
 
@@ -77,6 +79,10 @@ body {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.tutorial {
+    text-align: center;
 }
 
 .ship-placement {
