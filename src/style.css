@@ -149,7 +149,7 @@ body {
     cursor: pointer;
 }
 
-.buttons button:hover, .buttons button:focus {
+.buttons button:hover {
     background-color: hsl(30, 100%, 40%);
 }
 
