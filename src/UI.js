@@ -67,19 +67,63 @@ export class UI {
         });
     }
 
-    setupDragEventListeners(onShipDrop) {
+    setupDragEventListeners(onShipDrop, getCurrentOrientation) {
         const playerGrid = document.getElementById("player-board");
         const ships = document.querySelectorAll(".ship-container");
+        // store length in a variable because dataTransfer is locked during dragover
+        let draggedShipLength = 0;
 
         ships.forEach(ship => {
             ship.addEventListener("dragstart", (event) => {
+                draggedShipLength = Number(event.target.dataset.length);
                 event.dataTransfer.setData("shipName", event.target.dataset.name);
                 event.dataTransfer.setData("shipLength", event.target.dataset.length);
             });
         });
 
+        function clearShadows() {
+            const allSquares = playerGrid.querySelectorAll("div");
+            allSquares.forEach(sq => sq.classList.remove("hover-preview", "hover-invalid"));
+        }
+
         playerGrid.addEventListener("dragover", (event) => {
             event.preventDefault();
+            const square = event.target;
+            if (!square.dataset.x) return;
+
+            // clear previous shadows
+            clearShadows();
+
+            // calculate shadow path
+            const startX = Number(square.dataset.x);
+            const startY = Number(square.dataset.y);
+            const orientation = getCurrentOrientation();
+            const isHorizontal = orientation === "horizontal";
+
+            let canPlace = true;
+
+            for (let i = 0; i < draggedShipLength; i++) {
+                const x = isHorizontal ? startX + i : startX;
+                const y = isHorizontal ? startY : startY + i;
+
+                if (x < 10 && y < 10) {
+                    const targetSquare = playerGrid.querySelector(`[data-x="${x}"][data-y="${y}"]`);
+
+                    // detect collisions
+                    if (targetSquare.classList.contains("ship")) {
+                        canPlace = false;
+                    }
+
+                    targetSquare.classList.add(canPlace ? "hover-preview" : "hover-invalid");
+                } else {
+                    canPlace = false; // out of bounds
+                }
+            }
+        });
+
+        // remove shadows if the mouse leaves the board entirely
+        playerGrid.addEventListener("dragleave", () => {
+            clearShadows();
         });
 
         playerGrid.addEventListener("drop", (event) => {
@@ -90,6 +134,7 @@ export class UI {
             const x = Number(event.target.dataset.x);
             const y = Number(event.target.dataset.y);
 
+            clearShadows();
             onShipDrop(shipName, shipLength, x, y);
         });
     }
