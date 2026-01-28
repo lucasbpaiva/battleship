@@ -42,6 +42,11 @@ startBtn.addEventListener("click", () => {
     init();
 });
 
+resetBtn.addEventListener("click", () => {
+    // simply reload the page to get back to initial state
+    window.location.reload();
+});
+
 ui.renderGrid(game.board1, playerBoardDOM);
 ui.setupDragEventListeners((name, length, x, y) => {
     const orientation = currentOrientation === "horizontal" ? 0 : 1;
