@@ -139,9 +139,18 @@ body {
 }
 
 .buttons button {
+    font-size: inherit;
     background-color: #ff8000;
     padding: .5em 1em;
+    outline: none;
+    border: none;
+    border-radius: .2em;
+    color: whitesmoke;
     cursor: pointer;
+}
+
+.buttons button:hover, .buttons button:focus {
+    background-color: hsl(30, 100%, 40%);
 }
 
 .board-name {
