@@ -81,10 +81,7 @@ function setupEventListeners() {
         refreshUI();
         if (result === "Player wins!") {
             ui.showGameOver("player");
-            ui.setupRestart(() => {
-                game = new Game();
-                init();
-            });
+            ui.setupRestart();
         }
 
         // refresh UI again after computer's delay
@@ -93,10 +90,7 @@ function setupEventListeners() {
                 refreshUI();
                 if (game.gameOver) {
                     ui.showGameOver("computer");
-                    ui.setupRestart(() => {
-                        game = new Game();
-                        init();
-                    });
+                    ui.setupRestart();
                 } else {
                     ui.updateStatus("Your Turn");
                 }
