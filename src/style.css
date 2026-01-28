@@ -133,10 +133,15 @@ body {
 .ship-inventory.vertical .submarine { height: calc(4.6vmin * 3); }
 .ship-inventory.vertical .destroyer { height: calc(4.6vmin * 2); }
 
+.battleship-grid div.hover-preview,
+.battleship-grid div.hover-invalid {
+    border-radius: 0 !important;
+    transition: none;
+}
+
 .battleship-grid div.hover-preview {
     background-color: hsla(0, 0%, 100%, 0.4) !important;
     border: 1px solid white;
-    transition: background-color 0.1s ease;
     z-index: 10;
 }
 
