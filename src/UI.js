@@ -58,13 +58,12 @@ export class UI {
         message.style.color = winner === "player" ? "#ffffff" : "var(--hit-color)";
     }
 
-    setupRestart(handler) {
+    setupRestart() {
         const restartBtn = document.getElementById("restart-btn");
-        const modal = document.getElementById("game-over-modal");
 
         restartBtn.addEventListener("click", () => {
-            modal.classList.add("hidden");
-            handler();
+            // simply reload the page to restart the game
+            window.location.reload();
         });
     }
 
