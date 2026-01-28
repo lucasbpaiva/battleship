@@ -35,7 +35,7 @@ startBtn.addEventListener("click", () => {
     document.querySelector(".ship-placement").classList.add("hidden");
     document.querySelector(".computer-side").classList.remove("hidden");
     const shipSquares = playerBoardDOM.querySelectorAll(".ship");
-    if (shipSquares !== 17) {
+    if (shipSquares.length !== 17) {
         // not all ships placed, default to random placement
         autoPlacePlayerShips();
     }
