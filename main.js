@@ -48,15 +48,18 @@ resetBtn.addEventListener("click", () => {
 });
 
 ui.renderGrid(game.board1, playerBoardDOM);
-ui.setupDragEventListeners((name, length, x, y) => {
-    const orientation = currentOrientation === "horizontal" ? 0 : 1;
-    const successfullyPlaced = game.board1.placeShip(length, x, y, orientation);
+ui.setupDragEventListeners(
+    (name, length, x, y) => {
+        const orientation = currentOrientation === "horizontal" ? 0 : 1;
+        const successfullyPlaced = game.board1.placeShip(length, x, y, orientation);
 
-    if (successfullyPlaced) {
-        ui.renderGrid(game.board1, playerBoardDOM);
-        document.querySelector(`[data-name="${name}"]`).remove();
-    }
-});
+        if (successfullyPlaced) {
+            ui.renderGrid(game.board1, playerBoardDOM);
+            document.querySelector(`[data-name="${name}"]`).remove();
+        }
+    },
+    () => currentOrientation // getter function to tell the UI the current state
+);
 
 function init() {
     playerBoardDOM.textContent = "";
