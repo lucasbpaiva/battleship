@@ -86,7 +86,7 @@ export class UI {
         playerGrid.addEventListener("drop", (event) => {
             event.preventDefault();
             const shipName = event.dataTransfer.getData("shipName");
-            const shipLength = event.dataTransfer.getData("shipLength");
+            const shipLength = Number(event.dataTransfer.getData("shipLength"));
 
             const x = Number(event.target.dataset.x);
             const y = Number(event.target.dataset.y);
