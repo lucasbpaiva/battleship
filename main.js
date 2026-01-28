@@ -44,7 +44,8 @@ startBtn.addEventListener("click", () => {
 
 ui.renderGrid(game.board1, playerBoardDOM);
 ui.setupDragEventListeners((name, length, x, y) => {
-    const successfullyPlaced = game.board1.placeShip(length, x, y, currentOrientation);
+    const orientation = currentOrientation === "horizontal" ? 0 : 1;
+    const successfullyPlaced = game.board1.placeShip(length, x, y, orientation);
 
     if (successfullyPlaced) {
         ui.renderGrid(game.board1, playerBoardDOM);
