@@ -71,7 +71,7 @@ export class ComputerPlayer extends Player {
             y = Math.floor(Math.random() * 10);
             const visited = enemyGameboard.board[y][x][1];
 
-            if (!visited) {
+            if (!visited && (x + y) % 2 === 0) {
                 validMove = true;
             }
         }
