@@ -101,6 +101,7 @@ export class UI {
             const isHorizontal = orientation === "horizontal";
 
             let canPlace = true;
+            let squaresToHighlight = [];
 
             for (let i = 0; i < draggedShipLength; i++) {
                 const x = isHorizontal ? startX + i : startX;
@@ -108,17 +109,24 @@ export class UI {
 
                 if (x < 10 && y < 10) {
                     const targetSquare = playerGrid.querySelector(`[data-x="${x}"][data-y="${y}"]`);
-
-                    // detect collisions
-                    if (targetSquare.classList.contains("ship")) {
-                        canPlace = false;
+                    squaresToHighlight.push(targetSquare);
+                    let buffer = [];
+                    for (let i = -1; i <= 1; i++) {
+                        for (let j = -1; j <= 1; j++) {
+                            if (x + i >= 0 && x + i < 10 && y + j >= 0 && y + j < 10) {
+                                buffer.push(playerGrid.querySelector(`[data-x="${x + i}"][data-y="${y + j}"]`));
+                            }
+                        }
                     }
-
-                    targetSquare.classList.add(canPlace ? "hover-preview" : "hover-invalid");
+                    for (const sq of buffer) {
+                        if (sq.classList.contains("ship")) canPlace = false;
+                    }
                 } else {
-                    canPlace = false; // out of bounds
+                    canPlace = false;
                 }
             }
+            const hoverClass = canPlace ? "hover-preview" : "hover-invalid";
+            squaresToHighlight.forEach(sq => sq.classList.add(hoverClass));
         });
 
         // remove shadows if the mouse leaves the board entirely
