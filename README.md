@@ -1,6 +1,6 @@
 # 🚢 Battleship: A TDD Approach
 
-This is my take on the classic game Battleship. This was made as a capstone project for the JavaScript course on The Odin Project curriculum and the main goals of the project were to solidify my knowledge of **Vanilla JavaScript**, **Modular Design** and **Test-Driven Development (TDD)**. You can play the game [here](github.com).
+This is my take on the classic game Battleship. This was made as a capstone project for the JavaScript course on The Odin Project curriculum and the main goals of the project were to solidify my knowledge of **Vanilla JavaScript**, **Modular Design** and **Test-Driven Development (TDD)**. You can play the game [here](https://lucasbpaiva.github.io/battleship/).
 
 ![Demo of the battleship game](./src/images/demo.png)
 
